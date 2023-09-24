@@ -1,29 +1,32 @@
-import './global.scss'
-import './ONOSENDAI'
-import { NIC } from './NIC'
-import { simhash, embed_number_3d, downscale } from './simhash'
-import { WORLD_DOWNSCALE , getEventsList, visualizeNote } from './ONOSENDAI'
-import scrollLock from './scroll-lock.mjs'
+import './global.scss';
+import './ONOSENDAI';
+import { NIC } from './NIC';
+import { simhash, embed_number_3d, downscale } from './simhash';
+import { WORLD_DOWNSCALE, getEventsList, visualizeNote } from './ONOSENDAI';
+import scrollLock from './scroll-lock.mjs';
 
-document.body.classList.add('no-warn')
+document.body.classList.add('no-warn');
 
 // Initialize network interface controller
-const { pool, relays } = NIC()
+const { pool, relays } = NIC();
 
 // listen for notes
-const sub_notes = pool.sub(relays,[{kinds:[1]}])
+const sub_notes = pool.sub(relays, [{ kinds: [0] }]); // originally set at kinds: 1
 
 sub_notes.on('event', event => {
- let semanticHash = simhash(event.content)
- let semanticCoordinate = embed_number_3d(semanticHash.hash)
- let downscaledSemanticCoordinate = downscale(semanticCoordinate, WORLD_DOWNSCALE) 
- event.simhash = semanticHash.hash
- visualizeNote(event,downscaledSemanticCoordinate)
+  let semanticHash = simhash(event.content);
+  let semanticCoordinate = embed_number_3d(semanticHash.hash);
+  let downscaledSemanticCoordinate = downscale(
+    semanticCoordinate,
+    WORLD_DOWNSCALE
+  );
+  event.simhash = semanticHash.hash;
+  visualizeNote(event, downscaledSemanticCoordinate);
 
- // shutoff after 6000 events downloaded
- // TODO this is not actually our solution to performance but for now it works.
- if( getEventsList().length >= 2000 ) sub_notes.unsub()
-})
+  // shutoff after 6000 events downloaded
+  // TODO this is not actually our solution to performance but for now it works.
+  if (getEventsList().length >= 50000) sub_notes.unsub(); // originally set at 2000 events
+});
 
 // Listen for zaps
 // const sub_zaps = pool.sub(relays,[{kinds:[9735]}])
@@ -37,4 +40,4 @@ sub_notes.on('event', event => {
 //  visualizeEvent(event,coords)
 // })
 
-scrollLock.enable()
+scrollLock.enable();

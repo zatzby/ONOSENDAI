@@ -21,7 +21,11 @@ canvas[data-engine] {
 $z-mobile: -100px;
 $z-desktop: 0px;
 
-@mixin dom-ui-slide-in-animation-factory($keyframes-name, $top: 0px, $left: 0px){
+@mixin dom-ui-slide-in-animation-factory(
+  $keyframes-name,
+  $top: 0px,
+  $left: 0px
+) {
   @keyframes dom-ui-slide-in-mobile-#{$keyframes-name} {
     from {
       opacity: 0;
@@ -54,7 +58,7 @@ $z-desktop: 0px;
   cursor: pointer;
   position: absolute;
   // transform: perspective(20cm) rotateY(25deg) translate(10vw, calc(50vh - 5vh));
-  animation-duration: 0.25s;
+  animation-duration: 2s; // originally set at 0.25
   animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   animation-fill-mode: forwards;
 }
@@ -99,7 +103,7 @@ $z-desktop: 0px;
   --aug-inlay: initial;
   bottom: 10px;
   color: #c6bed6;
-  font-size: 20px;//min(5vw, 20px);
+  font-size: 20px; //min(5vw, 20px);
   padding: 1rem;
   position: absolute;
   right: 0.5rem;
@@ -121,15 +125,17 @@ $z-desktop: 0px;
   height: 14vh;
   // filter: brightness(50%) sepia(1) saturate(10000%) hue-rotate(90deg);
   // transition: filter 500ms ease;
-  &:hover, &.set {
+  &:hover,
+  &.set {
     background-image: url(/bookmark-set.png);
   }
 }
 .button {
   transition: transform 150ms ease-out;
-  &:hover, &:active {
+  &:hover,
+  &:active {
     // transform: perspective(20cm) translateZ(-1cm);
-    transform: translateY(0.5vh)
+    transform: translateY(0.5vh);
   }
 }
 
@@ -181,7 +187,9 @@ $z-desktop: 0px;
 
 a {
   color: #06a4a4;
-  &:visited, &:hover, &:active {
+  &:visited,
+  &:hover,
+  &:active {
     color: #06a4a4aa;
   }
 }
