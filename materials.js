@@ -104,7 +104,7 @@ export const relatedCubeMaterial = new MeshPhongMaterial({
  opacity: 0.90,
 })
 
-// for a note thas was selected but not read
+// for a note that was selected but not read
 export const selectedMaterial = new MeshPhongMaterial({
  color: LOGO_BLUE,
  shininess: 30,
